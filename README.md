@@ -125,105 +125,16 @@ cd Backend
 </p>
   
   Then clone the repository to your local machine:
-  
 
+- [Get env file to run](https://gist.github.com/DevPeter1454/1f50378be502596ed1016d8fecd47695)
 
-> \[!TIP\]
-> If you are in a hurry, you may use one of the following templates (containing a `.env`, `docker-compose.yml` and `Dockerfile`):
-
-- [Get env file to run](https://gist.github.com/igorbenav/48ad745120c3f77817e094f3a609111a)
 
 > \[!WARNING\]
 > Do not forget to place `docker-compose.yml` and `Dockerfile` in the `root` folder, while `.env` should be in the `src` folder.
 
 ### 3.1 Environment Variables (.env)
 
-Then create a `.env` file inside `src` directory:
 
-```sh
-touch .env
-```
-
-Inside of `.env`, copy the following values:
-
-```
-# ------------- app settings -------------
-APP_NAME="Alpha Eye"
-APP_DESCRIPTION="Using AI to help you see the world"
-APP_VERSION="0.1"
-CONTACT_NAME="Peter Ojo"
-CONTACT_EMAIL="ojopeter36@gmail.com"
-LICENSE_NAME="MIT"
-
-# ------------- database -------------
-POSTGRES_USER="postgres"
-POSTGRES_PASSWORD="postgres"
-POSTGRES_SERVER="database-1.ct2eyigkmjak.us-east-1.rds.amazonaws.com" 
-POSTGRES_PORT=5432
-POSTGRES_DB="postgres"
-
-
-# ------------- pgadmin -------------
-PGADMIN_DEFAULT_EMAIL="ojopeter36@gmail.com"
-PGADMIN_DEFAULT_PASSWORD="postgres"
-PGADMIN_LISTEN_PORT=80
-
-
-# ------------- crypt -------------
-SECRET_KEY= fab4fdbf48f832410961c7ce2f0add489fa892ac0f4d84a850e56b526501ab48 
-ALGORITHM= HS256 
-ACCESS_TOKEN_EXPIRE_MINUTES= 1440 
-REFRESH_TOKEN_EXPIRE_DAYS= 7 
-# ------------- admin -------------
-ADMIN_NAME="Peter Ojo"
-ADMIN_EMAIL="ojopeter36@gmail.com"
-ADMIN_USERNAME="hackerone"
-ADMIN_PASSWORD="peterwinner1454"
-
-
-# ------------- redis cache-------------
-REDIS_CACHE_HOST="redis-12850.c1.asia-northeast1-1.gce.cloud.redislabs.com"
-REDIS_CACHE_PORT=12850 
-REDIS_CACHE_PASSWORD = "s72zxZmctK1XZhFop67NaihBlllZJeZJ"
-
-
-# ------------- redis client-side cache -------------
-CLIENT_CACHE_MAX_AGE=30 
-
-
-# ------------- redis queue -------------
-REDIS_QUEUE_HOST="your_host" # default "localhost", if using docker compose you should use "redis"
-REDIS_QUEUE_PORT=6379 # default "6379", if using docker compose you should use "6379"
-
-
-# ------------- first tier -------------
-TIER_NAME="free"
-
-
-# ------------- redis rate limit -------------
-REDIS_RATE_LIMIT_HOST="localhost"   # default="localhost", if using docker compose you should use "redis"
-REDIS_RATE_LIMIT_PORT=6379          # default=6379, if using docker compose you should use "6379"
-
-
-# ------------- default rate limit settings -------------
-DEFAULT_RATE_LIMIT_LIMIT=10         # default=10
-DEFAULT_RATE_LIMIT_PERIOD=3600      # default=3600
-
-
-# ------------- test -------------
-TEST_NAME="Tester User"
-TEST_EMAIL="test@tester.com"
-TEST_USERNAME="testeruser"
-TEST_PASSWORD="Str1ng$t"
-
-
-CLOUDINARY_CLOUD_NAME = peterojo
-CLOUDINARY_API_KEY = 329888361854121
-CLOUDINARY_API_SECRET = MS8z__QaqfZ9CqVA5HiNwTkO3xU
-
-# ------------- environment -------------
-ENVIRONMENT="local"
-```
 
 
 
