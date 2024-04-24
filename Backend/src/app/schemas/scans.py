@@ -32,6 +32,7 @@ class ScanBase(BaseModel):
 class ScanCreate(ScanBase):
     model_config = ConfigDict(extra="forbid")
     special_id: str
+    scan_image_url:str
 
 
 class ScanRead(BaseModel):
