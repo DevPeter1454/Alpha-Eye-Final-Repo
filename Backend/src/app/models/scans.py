@@ -17,6 +17,8 @@ class Scans(Base):
 
     label_id: Mapped[str] = mapped_column(
         String, nullable=False,)
+    
+    scan_image_url: Mapped[str] = mapped_column(String,nullable=False)
 
     scan_id: Mapped[str] = mapped_column(
         String, nullable=False, )
