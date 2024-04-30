@@ -88,7 +88,7 @@ function ScanResult({
             className={file ? "w-full h-[200px] m-auto my-5" : "hidden"}
           />
           <img
-            src={selectedPatient ? selectedPatient?.scan_url : ""}
+            src={selectedPatient ? selectedPatient?.scan_image_url : ""}
             alt="scaned-image"
             className={
               selectedPatient ? "w-full h-[200px] m-auto my-5" : "hidden"
