@@ -139,15 +139,15 @@ function ScanResult({
           </p>
 
           <button
-            // onClick={HandleShowMakePrescription}
-            onClick={() => {
-              localStorage.setItem("selectedImage", "");
-              setShowScanResult(false);
-            }}
+            onClick={HandleShowMakePrescription}
+            // onClick={() => {
+            //   localStorage.setItem("selectedImage", "");
+            //   setShowScanResult(false);
+            // }}
             className="w-4/5 text-[#0693F1] border-2 border-[#0693F1] rounded-[8px] py-4 mt-5"
           >
-            {/* Make Prescription */}
-            Done
+            Make Prescription
+            {/* Done */}
           </button>
         </div>
       </div>
