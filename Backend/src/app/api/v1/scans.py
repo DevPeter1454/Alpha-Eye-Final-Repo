@@ -89,6 +89,7 @@ async def upload_scan(
                 "description": "The scan is not too good for normal. The confidence level is less than 80%.",
                 "recommendations": "It is advisable to see a doctor for further diagnosis",
                 "special_id": current_user["special_id"],
+                "scan_image_url": response['url'],
                 "created_at": datetime.datetime.now(),
             }
             scan_internal_create = ScanCreate(**scan_response)
@@ -115,6 +116,8 @@ async def upload_scan(
             "description": "The scan is good for normal. The confidence level is greater than 80%.",
             "recommendations": "It's good to always do a regular checkup. Please see a doctor for further diagnosis.",
             "special_id": current_user["special_id"],
+            "scan_image_url": response['url'],
+
             "created_at": datetime.datetime.now(),
         }
         scan_internal_create = ScanCreate(**scan_response)
@@ -144,6 +147,8 @@ async def upload_scan(
                 "description": "Cataracts are a common eye condition that often develops with age. They occur when the clear lens in your eye becomes cloudy, leading to blurred or dimmed vision. Cataracts can impact your daily life and well-being, making it essential to understand your specific condition and explore treatment options.",
                 "recommendations": "It is strongly recommended to schedule an appointment with an ophthalmologist for a comprehensive eye examination. They will assess the extent of your cataracts and discuss treatment options.",
                 "special_id": current_user["special_id"],
+                "scan_image_url": response['url'],
+
                 "created_at": datetime.datetime.now(),
             }
             scan_internal_create = ScanCreate(**scan_response)
@@ -169,6 +174,8 @@ async def upload_scan(
                 "description": "Cataracts are a common eye condition that often develops with age. They occur when the clear lens in your eye becomes cloudy, leading to blurred or dimmed vision. Cataracts can impact your daily life and well-being, making it essential to understand your specific condition and explore treatment options.",
                 "recommendations": "Your cataracts are in an advanced stage, affecting your vision significantly. This means that you may have trouble reading, driving, or performing other daily activities.Also you may experience blurred or cloudy vision. Difficulty seeing in low light conditions.Colors may appear faded. Glare from bright lights can be bothersome. It is strongly recommended to schedule an appointment with an ophthalmologist for a comprehensive eye examination. They will assess the extent of your cataracts and discuss treatment options.",
                 "special_id": current_user["special_id"],
+                "scan_image_url": response['url'],
+
                 "created_at": datetime.datetime.now(),
             }
             scan_internal_create = ScanCreate(**scan_response)
@@ -224,6 +231,8 @@ async def read_user_scan_history(
                     "recommendations": scan["recommendations"],
                     "created_at": scan["created_at"],
                     "is_deleted": scan["is_deleted"],
+                    "scan_image_url": scan['scan_image_url'],
+
                     "special_id": scan["special_id"]
                 },
                 "detailed_description": {
@@ -271,6 +280,8 @@ async def read_scan_by_id(
         "created_at": scan["created_at"],
         "is_deleted": scan["is_deleted"],
         "special_id": scan["special_id"],
+        "scan_image_url": scan['scan_image_url'],
+
         "detailed_description": {
             "title": scan["title"],
             "description": scan["description"],
@@ -325,6 +336,8 @@ async def write_patient_scan(
         "description": "None",
         "recommendations": "None",
         "special_id": patient_id,
+        "scan_image_url": response['url'],
+
         "created_at": datetime.datetime.now(),
     }
 

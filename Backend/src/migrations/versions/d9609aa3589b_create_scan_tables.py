@@ -27,6 +27,7 @@ def upgrade() -> None:
         sa.Column('label_id', sa.String(), nullable=False, unique=True),
         sa.Column('scan_id', sa.String(), nullable=False, unique=True),
         sa.Column('label_confidence', sa.Integer(), nullable=False),
+        sa.Column('scan_image_url', sa.String(), nullable=False),
         sa.Column('detected_conditions', sa.String(), nullable=False),
         sa.Column('recommendation', sa.String(), nullable=False),
         sa.Column('severity', sa.String(), nullable=False),

@@ -88,7 +88,7 @@ function ScanResult({
             className={file ? "w-full h-[200px] m-auto my-5" : "hidden"}
           />
           <img
-            src={selectedPatient ? selectedPatient?.scan_url : ""}
+            src={selectedPatient ? selectedPatient?.scan_image_url : ""}
             alt="scaned-image"
             className={
               selectedPatient ? "w-full h-[200px] m-auto my-5" : "hidden"
@@ -139,15 +139,15 @@ function ScanResult({
           </p>
 
           <button
-            // onClick={HandleShowMakePrescription}
-            onClick={() => {
-              localStorage.setItem("selectedImage", "");
-              setShowScanResult(false);
-            }}
+            onClick={HandleShowMakePrescription}
+            // onClick={() => {
+            //   localStorage.setItem("selectedImage", "");
+            //   setShowScanResult(false);
+            // }}
             className="w-4/5 text-[#0693F1] border-2 border-[#0693F1] rounded-[8px] py-4 mt-5"
           >
-            {/* Make Prescription */}
-            Done
+            Make Prescription
+            {/* Done */}
           </button>
         </div>
       </div>
