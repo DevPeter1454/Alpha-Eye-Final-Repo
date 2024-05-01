@@ -169,8 +169,7 @@ class _ScanMyEyeState extends State<ScanMyEye> {
                               if (pic.value != null) {
                                 return ScanningEffect(
                                   scanningColor: Colors.green,
-                                  borderLineColor:
-                                      Colors.black.withOpacity(0.9),
+                                  borderLineColor: Colors.transparent,
                                   delay: const Duration(seconds: 1),
                                   duration: const Duration(seconds: 2),
                                   scanningLinePadding:

@@ -15,7 +15,7 @@ class App extends HookWidget {
     return OverlaySupport.global(
         child: ResponsiveSizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-        title: 'Kobo Kobo',
+        title: 'Alpha Eye',
         navigatorKey: navigationService.navigatorKey,
         theme: AppTheme.lightTheme,
         debugShowCheckedModeBanner: false,
