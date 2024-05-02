@@ -21,6 +21,8 @@ from ...core.security import (
     verify_token,
 )
 
+
+
 router = fastapi.APIRouter(tags=["login"])
 
 
@@ -67,3 +69,44 @@ async def refresh_access_token(request: Request, db: AsyncSession = Depends(asyn
 
     new_access_token = await create_access_token(data={"sub": user_data.username_or_email})
     return {"access_token": new_access_token, "token_type": "bearer"}
+
+
+def parse_env_file(env_content):
+    env_vars = {}
+    for line in env_content.splitlines():
+        if line.strip() and not line.startswith("#"):
+            key, value = line.strip().split("=", 1)
+            env_vars[key.strip()] = value.strip()
+    return env_vars
+
+
+@router.get("/secrets")
+async def read_secrets_from_secret_manager(request: Request):
+    project_id = '522840570394'
+    secret_name = 'alpha-eye-be-v2-env'
+    client_sm = secretmanager.SecretManagerServiceClient()
+
+    # Access the secret
+    name = f"projects/{project_id}/secrets/{secret_name}/versions/latest"
+    response = client_sm.access_secret_version(request={"name": name})
+
+    # Extract the secret value (JSON string)
+    secret_value_json = response.payload.data.decode("UTF-8")
+
+    env_vars = parse_env_file(secret_value_json)
+
+    env_list = []
+
+    for key, value in env_vars.items():
+        env_list.append({
+            f"{key}": f"{value}"
+        })
+
+    keys_to_access = set().union(*(d.keys() for d in env_list))
+
+# Create a new dictionary with values associated with the specified keys
+    result_dict = {key: next((d[key] for d in env_list if key in d), None)
+                   for key in keys_to_access}
+
+# Print the result
+    print(result_dict["APP_NAME"])
