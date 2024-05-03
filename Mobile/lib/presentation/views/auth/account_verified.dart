@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:alpha_eye/presentation/views/buyer/home/bottom_nav.dart';
+import 'package:alpha_eye/presentation/views/features/home/bottom_nav.dart';
 
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -89,7 +89,7 @@ class _AccountVerifySuccessPageState extends State<AccountVerifySuccessPage> {
                   AppButton(
                     loading: loading.value,
                     onPressed: () {
-                      navigationService.pushReplacement(const BuyerHome());
+                      navigationService.pushReplacement(const BottomNavHome());
                     },
                     title: 'Continue',
                   ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "525146998604",
+    "project_id": "a-eye-397619",
+    "storage_bucket": "a-eye-397619.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525146998604:android:995abb13b1d20c3dde71e9",
+        "android_client_info": {
+          "package_name": "com.switchcon.alpha_eye"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAe6Fh73eEqzjJ1kvPmJO5514xgzeG9ts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

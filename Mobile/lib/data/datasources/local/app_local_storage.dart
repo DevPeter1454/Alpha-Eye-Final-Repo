@@ -22,6 +22,10 @@ class AppLocalStorage {
     _localStorageService.saveMap(StorageKeys.appUser, user?.toJson());
   }
 
+  void saveNotificationToken(String? value) {
+    _localStorageService.save(StorageKeys.notificationToken, value);
+  }
+
   User? getUser() {
     final res = _localStorageService.getMap(StorageKeys.appUser);
     if (res == null) return null;

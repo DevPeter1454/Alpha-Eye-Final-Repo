@@ -1,5 +1,5 @@
 import 'package:alpha_eye/core/cores.dart';
-import 'package:alpha_eye/presentation/views/buyer/widgets/notification_tile.dart';
+import 'package:alpha_eye/presentation/views/features/widgets/notification_tile.dart';
 import 'package:flutter/material.dart';
 
 class NotificationPage extends StatefulWidget {

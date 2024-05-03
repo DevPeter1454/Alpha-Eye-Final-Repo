@@ -1,6 +1,6 @@
-import 'package:alpha_eye/presentation/views/buyer/recent_scan/recent_scan.dart';
-import 'package:alpha_eye/presentation/views/buyer/scan_my_eye/scan_my_eye.dart';
-import 'package:alpha_eye/presentation/views/buyer/upload_scan/upload_scan.dart';
+import 'package:alpha_eye/presentation/views/features/recent_scan/recent_scan.dart';
+import 'package:alpha_eye/presentation/views/features/scan_my_eye/scan_my_eye.dart';
+import 'package:alpha_eye/presentation/views/features/upload_scan/upload_scan.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

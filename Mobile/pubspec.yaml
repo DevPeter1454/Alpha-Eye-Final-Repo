@@ -42,6 +42,12 @@ dependencies:
   scanning_effect: ^1.0.4
   dio_cookie_manager: ^3.1.1
   cookie_jar: ^4.0.8
+  firebase_core: ^2.24.2
+  cloud_firestore: ^4.14.0
+  firebase_auth: ^4.16.0
+  google_generative_ai: ^0.3.2
+  flutter_markdown: ^0.6.19
+  firebase_messaging: ^14.7.10
   
   
 

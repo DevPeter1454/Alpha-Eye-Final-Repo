@@ -5,6 +5,7 @@ class AppAssets {
   static const alphaLogoBluePng = 'assets/images/pngs/alphaLogoBlue.png';
   static const banner = 'assets/images/pngs/banner.png';
   static const uiLogoPng = 'assets/images/pngs/uiLogoPng.png';
+  static const geminiPng = 'assets/images/pngs/gemini.png';
 
   //SVGS
   static const searchIconSvg = 'assets/images/svgs/Search.svg';
@@ -19,4 +20,6 @@ class AppAssets {
   static const uiLogo = 'assets/images/svgs/uilogo.svg';
   static const greyNotification = 'assets/images/svgs/grey_notification.svg';
   static const uploadSVG = 'assets/images/svgs/et_upload.svg';
+  static const pillSVG = 'assets/images/svgs/pill.svg';
+  static const geminiSVG = 'assets/images/svgs/gemini.svg';
 }

@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:alpha_eye/core/cores.dart';
 import 'package:alpha_eye/data/data.dart';
 import 'package:alpha_eye/presentation/bloc/scan/scan_bloc.dart';
-import 'package:alpha_eye/presentation/views/buyer/scan_detail/scan_details.dart';
+import 'package:alpha_eye/presentation/views/features/scan_detail/scan_details.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

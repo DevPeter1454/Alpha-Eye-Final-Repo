@@ -1,5 +1,7 @@
 import 'package:alpha_eye/data/data.dart';
-import 'package:alpha_eye/presentation/views/buyer/recommendation/clinic_recommendation.dart';
+import 'package:alpha_eye/presentation/views/features/gemini/gemini_home.dart';
+import 'package:alpha_eye/presentation/views/features/recommendation/clinic_recommendation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -196,6 +198,31 @@ class _ScanDetailViewState extends State<ScanDetailView> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+              ),
+              const Spacing.height(
+                24.0,
+              ),
+              Center(
+                child: AppButton(
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signInAnonymously();
+                    navigationService.push(const AskGeminiHome());
+                  },
+                  borderColor: AppColors.primary,
+                  borderWidth: 1,
+                  elevation: 0,
+                  width: double.infinity,
+                  color: Colors.transparent,
+                  child: const AppText(
+                    'Learn more from Gemini',
+                    color: AppColors.primary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const Spacing.height(
+                24.0,
               ),
             ],
           ),
