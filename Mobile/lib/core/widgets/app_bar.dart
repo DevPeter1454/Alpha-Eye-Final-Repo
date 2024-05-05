@@ -1,4 +1,4 @@
-import 'package:alpha_eye/presentation/views/buyer/notification_page/notification_page.dart';
+import 'package:alpha_eye/presentation/views/features/notification_page/notification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:alpha_eye/core/widgets/user_avatar.dart';
 import 'package:flutter_svg/svg.dart';

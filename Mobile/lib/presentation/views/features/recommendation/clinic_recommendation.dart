@@ -1,5 +1,5 @@
 import 'package:alpha_eye/core/cores.dart';
-import 'package:alpha_eye/presentation/views/buyer/widgets/clinic_card.dart';
+import 'package:alpha_eye/presentation/views/features/widgets/clinic_card.dart';
 import 'package:flutter/material.dart';
 
 class ClinicRecommendationView extends StatefulWidget {

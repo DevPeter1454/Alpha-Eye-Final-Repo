@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:alpha_eye/core/cores.dart';
 import 'package:alpha_eye/data/data.dart';
 import 'package:alpha_eye/presentation/bloc/scan/scan_bloc.dart';
-import 'package:alpha_eye/presentation/views/buyer/scan_detail/scan_details.dart';
+import 'package:alpha_eye/presentation/views/features/scan_detail/scan_details.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -169,8 +169,7 @@ class _ScanMyEyeState extends State<ScanMyEye> {
                               if (pic.value != null) {
                                 return ScanningEffect(
                                   scanningColor: Colors.green,
-                                  borderLineColor:
-                                      Colors.black.withOpacity(0.9),
+                                  borderLineColor: Colors.transparent,
                                   delay: const Duration(seconds: 1),
                                   duration: const Duration(seconds: 2),
                                   scanningLinePadding:

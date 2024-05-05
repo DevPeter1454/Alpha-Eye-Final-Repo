@@ -13,7 +13,6 @@ class ApiService {
 
   final String path;
 
-
   Dio get _dio => Dio(
         BaseOptions(
           headers: {
@@ -24,16 +23,16 @@ class ApiService {
           contentType: Headers.jsonContentType,
           responseType: ResponseType.json,
         ),
-      )..interceptors.add(LoggingInterceptor())..interceptors.add(CookieManager(cookieJar));
-  
-   
+      )
+        ..interceptors.add(LoggingInterceptor())
+        ..interceptors.add(CookieManager(cookieJar));
 
   Future<dynamic> get(String path, {Map<String, dynamic>? queryParams}) async {
     try {
       final res = await _dio.get(path, queryParameters: queryParams);
       return res.data;
     } on DioException catch (e) {
-      throw ApiFailure(e.message ?? 'Something went wrong!');
+      throw ApiFailure(_handleError(e));
     }
   }
 
@@ -42,7 +41,7 @@ class ApiService {
       final res = await _dio.delete(path);
       return res.data;
     } on DioException catch (e) {
-      throw ApiFailure(e.message ?? 'Something went wrong!');
+      throw ApiFailure(_handleError(e));
     }
   }
 
@@ -51,7 +50,7 @@ class ApiService {
       final res = await _dio.post(path, data: data);
       return res.data;
     } on DioException catch (e) {
-      throw ApiFailure(e.message ?? 'Something went wrong!');
+      throw ApiFailure(_handleError(e));
     }
   }
 
@@ -66,7 +65,7 @@ class ApiService {
       );
       return res.data;
     } on DioException catch (e) {
-      throw ApiFailure(e.message ?? 'Something went wrong!');
+      throw ApiFailure(_handleError(e));
     }
   }
 
@@ -75,7 +74,49 @@ class ApiService {
       final res = await _dio.patch(path, data: data);
       return res.data;
     } on DioException catch (e) {
-      throw ApiFailure(e.message ?? 'Something went wrong!');
+      throw ApiFailure(_handleError(e));
     }
+  }
+
+  String _handleError(DioError dioError) {
+    String errorDescription = "";
+    //if (error is DioError) {
+    //DioError dioError = error as DioError;
+
+    switch (dioError.type) {
+      case DioErrorType.cancel:
+        errorDescription = "Request to server was cancelled";
+        break;
+      case DioErrorType.connectionTimeout:
+        errorDescription = "Connection timeout. Please try again!";
+        break;
+      case DioErrorType.unknown:
+        errorDescription = "Something went wrong";
+        break;
+      case DioErrorType.receiveTimeout:
+        errorDescription = "Receive timeout in connection with server";
+        break;
+      case DioErrorType.sendTimeout:
+        errorDescription = "Send timeout in connection with server";
+        break;
+      case DioErrorType.connectionError:
+        errorDescription = "Connection to server failed due to internet";
+        break;
+      case DioErrorType.badCertificate:
+        errorDescription = "Bad certificate";
+        break;
+      case DioErrorType.badResponse:
+        errorDescription = "Bad response";
+        if (dioError.response?.data['detail'] != null) {
+          errorDescription = dioError.response?.data['detail'];
+        }
+
+        if (dioError.response?.data['detail'] != null) {
+          errorDescription = dioError.response?.data['detail'];
+        }
+        break;
+    }
+
+    return errorDescription;
   }
 }

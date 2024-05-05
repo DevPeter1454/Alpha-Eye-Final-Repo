@@ -9,6 +9,7 @@ class AppGlobals extends ChangeNotifier {
 
   String? _token;
   User? _user;
+  String? _notificationToken;
 
   Future<void> init() async {
     _token = authLocalStorage.getToken();
@@ -28,6 +29,12 @@ class AppGlobals extends ChangeNotifier {
     notifyListeners();
   }
 
+  set notificationToken(String? value) {
+    _notificationToken = value;
+    notifyListeners();
+  }
+
   String? get token => _token;
   User? get user => _user;
+  String? get notificationToken => _notificationToken;
 }

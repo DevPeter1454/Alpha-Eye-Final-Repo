@@ -13,10 +13,13 @@ from ...crud.crud_rate_limit import crud_rate_limits
 from ...crud.crud_tier import crud_tiers
 from ...crud.crud_doctors import crud_doctors
 from ...crud.crud_hospitals import crud_hospitals
+from ...crud.crud_prescriptions import crud_prescriptions
 from ...models.tier import Tier
+from ...models.prescription import Prescriptions
 from ...schemas.tier import TierRead
 from ...schemas.hospital import HospitalRead
 from ...schemas.doctor import DoctorCreate, DoctorCreateInternal, DoctorRead, DoctorUpdate
+from ...schemas.prescription import PrescriptionCreate, PrescriptionRead, PrescriptionUpdate
 from ...core.utils.cache import cache
 from pydantic import EmailStr
 from ...core.config import settings
@@ -33,7 +36,6 @@ cloudinary.config(
 
 
 @router.post("/doctor", status_code=201, response_model=DoctorRead)
-
 async def write_doctor(
     request: Request,
     hospital_id: str,
@@ -61,7 +63,23 @@ async def write_doctor(
     doctor_internal = DoctorCreateInternal(
         **doctor_internal_dict)
     created_doctor: DoctorRead = await crud_doctors.create(db=db, object=doctor_internal)
-    return created_doctor
+    return
+
+
+@router.post("/doctor/prescribe", status_code=201, response_model=PrescriptionRead)
+async def write_prescription(prescription: PrescriptionCreate, db: Annotated[AsyncSession, Depends(async_get_db)],
+                             current_user: Annotated[HospitalRead, Depends(get_current_doctor_or_hospital)], ):
+
+    if prescription.doctor_id != current_user["doctor_id"]:
+        raise ForbiddenException(
+            "You are not authorized to perform this action")
+
+    prescription_internal_dict = prescription.model_dump()
+
+    prescription_internal = PrescriptionCreate(
+        **prescription_internal_dict)
+    created_prescription: PrescriptionRead = await crud_prescriptions.create(db=db, object=prescription_internal)
+    return created_prescription
 
 
 @router.delete("/doctor/{doctor_id}")
