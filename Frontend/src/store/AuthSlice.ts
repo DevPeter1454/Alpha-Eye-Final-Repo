@@ -30,6 +30,7 @@ export interface User {
   phone: string;
   is_approved: boolean;
   hospital_id: string;
+  created_at?: string;
 }
 
 export interface AuthState {

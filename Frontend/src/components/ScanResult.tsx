@@ -12,6 +12,8 @@ function ScanResult({
     setShowPrescription(true);
     setShowScanResult(false);
   };
+  localStorage.setItem("scanPatientId", showScanResultData?.patient_id);
+
   const file = localStorage.getItem("selectedImage");
   const confidencePercentages = showScanResultData?.scan?.label_confidence;
   const confidencePercentage = selectedPatient?.label_confidence;
@@ -85,13 +87,17 @@ function ScanResult({
           <img
             src={file ? file : ""}
             alt="scaned-image"
-            className={file ? "w-full h-[200px] m-auto my-5" : "hidden"}
+            className={
+              file ? "w-full h-[200px] m-auto my-5 rounded-xl" : "hidden"
+            }
           />
           <img
             src={selectedPatient ? selectedPatient?.scan_image_url : ""}
             alt="scaned-image"
             className={
-              selectedPatient ? "w-full h-[200px] m-auto my-5" : "hidden"
+              selectedPatient
+                ? "w-full h-[200px] m-auto my-5 rounded-xl"
+                : "hidden"
             }
           />
         </div>
@@ -140,10 +146,6 @@ function ScanResult({
 
           <button
             onClick={HandleShowMakePrescription}
-            // onClick={() => {
-            //   localStorage.setItem("selectedImage", "");
-            //   setShowScanResult(false);
-            // }}
             className="w-4/5 text-[#0693F1] border-2 border-[#0693F1] rounded-[8px] py-4 mt-5"
           >
             Make Prescription
