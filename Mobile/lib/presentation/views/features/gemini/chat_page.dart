@@ -1,12 +1,10 @@
-import 'package:alpha_eye/data/models/responses/messaging.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class GeminiChatPage extends StatefulWidget {
-  const GeminiChatPage({super.key});
+  final String? message;
+  const GeminiChatPage({super.key, this.message});
 
   @override
   State<GeminiChatPage> createState() => _GeminiChatPageState();
@@ -37,6 +35,7 @@ class _GeminiChatPageState extends State<GeminiChatPage> {
       apiKey: _apiKey,
     );
     _chat = _model.startChat();
+    _sendChatMessage(widget.message ?? "Hello");
   }
 
   void _scrollDown() {
@@ -75,8 +74,13 @@ class _GeminiChatPageState extends State<GeminiChatPage> {
     );
 
     return Scaffold(
+      backgroundColor: Color(0xFFFBFBFB),
       appBar: AppBar(
-        title: Text("Chat"),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        title: const Text('Ask Gemini'),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -227,7 +231,7 @@ class MessageWidget extends StatelessWidget {
                 constraints: const BoxConstraints(maxWidth: 520),
                 decoration: BoxDecoration(
                   color: isFromUser
-                      ? Theme.of(context).colorScheme.primaryContainer
+                      ? const Color(0xFFF2F8FF)
                       : Theme.of(context).colorScheme.surfaceVariant,
                   borderRadius: BorderRadius.circular(18),
                 ),
@@ -237,7 +241,18 @@ class MessageWidget extends StatelessWidget {
                 ),
                 margin: const EdgeInsets.only(bottom: 8),
                 child: Column(children: [
-                  if (text case final text?) MarkdownBody(data: text),
+                  if (text case final text?)
+                    MarkdownBody(
+                      data: text,
+                      styleSheet: MarkdownStyleSheet(
+                        p: TextStyle(
+                          color: isFromUser
+                              ? const Color(0xFF1A73E8)
+                              : Theme.of(context).colorScheme.onSurface,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
                   if (image case final image?) image,
                 ]))),
       ],

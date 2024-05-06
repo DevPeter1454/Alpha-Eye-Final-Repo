@@ -1,8 +1,6 @@
-import 'package:alpha_eye/core/constants/constants.dart';
 import 'package:alpha_eye/core/cores.dart';
 import 'package:alpha_eye/presentation/views/features/gemini/chat_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class AskGeminiHome extends StatefulWidget {
   const AskGeminiHome({super.key});
@@ -12,10 +10,32 @@ class AskGeminiHome extends StatefulWidget {
 }
 
 class _AskGeminiHomeState extends State<AskGeminiHome> {
+  final question = [
+    {
+      'question': 'What is Cataract?',
+      'answer':
+          'Cataracts are cloudy areas in the lens of the eye. Your scan detected a mild cataract.'
+    },
+    {
+      'question': 'What are the symptoms of cataracts?',
+      'answer':
+          'The symptoms of cataracts can develop gradually over time and may vary from person to person'
+    },
+    {
+      'question': 'How are cataracts diagnosed?',
+      'answer':
+          'Cataracts are diagnosed by a comprehensive eye exam performed by an ophthalmologist (a doctor who specializes in eye care)'
+    },
+    {
+      'question': 'How are cataracts treated?',
+      'answer':
+          'The only effective treatment for cataracts is surgery. During cataract surgery, the cloudy lens of the eye is removed and replaced ...'
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFFBFBFB),
+        backgroundColor: const Color(0xFFFBFBFB),
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
@@ -27,12 +47,12 @@ class _AskGeminiHomeState extends State<AskGeminiHome> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-              Image.asset(AppAssets.geminiPng, width: 200, height: 200),
+              Image.asset(AppAssets.geminiPng, width: 150, height: 150),
               Expanded(
                 child: GridView.builder(
                   shrinkWrap: true,
                   //padding: EdgeInsets.all(8),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
@@ -40,27 +60,34 @@ class _AskGeminiHomeState extends State<AskGeminiHome> {
                   ),
                   itemCount: 4,
                   itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
+                    return GestureDetector(
+                      onTap: () => navigationService.push(
+                        GeminiChatPage(
+                          message: question[index]['question']!,
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText(
-                            'What is Cataract?',
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.primary,
-                            fontSize: 18,
-                          ),
-                          SizedBox(height: 8),
-                          AppText(
-                            'Cataracts are cloudy areas in the lens of the eye. Your scan detected a mild cataract.',
-                            color: Colors.black54,
-                          ),
-                        ],
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppText(
+                              question[index]['question']!,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.primary,
+                              fontSize: 18,
+                            ),
+                            const SizedBox(height: 8),
+                            AppText(
+                              question[index]['answer']!,
+                              color: Colors.black54,
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

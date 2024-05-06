@@ -27,6 +27,7 @@ class _RecentScanViewState extends State<RecentScanView> {
   @override
   Widget build(BuildContext context) {
     final scans = useState(<ScanResponse>[]);
+    final isLoading = useState(true);
     return BlocConsumer(
       bloc: scanBloc,
       listener: (context, state) {
@@ -34,9 +35,13 @@ class _RecentScanViewState extends State<RecentScanView> {
           log(state.error);
           snackBars.error(message: state.error);
         }
+        if (state is ScanLoading) {
+          isLoading.value = true;
+        }
         if (state is GetScanHistorySuccess) {
           scans.value = state.scanHistory;
           log(scans.value[0].scan!.scanId.toString());
+          isLoading.value = false;
         }
       },
       builder: (context, state) {
@@ -44,44 +49,51 @@ class _RecentScanViewState extends State<RecentScanView> {
           appBar: const BackAppBar(
             title: 'Recent Scan',
           ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacing.height(26),
-                const AppText(
-                  'Check out your scan history and see details',
-                  fontSize: 18,
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w500,
-                ),
-                const Spacing.height(16),
-                Expanded(
-                  child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          navigationService
-                              .push(ScanDetailView(scans.value[index]));
-                        },
-                        child: ScanCard(
-                          title: scans.value[index].scan?.scanId ?? '',
-                          date:
-                              '${scans.value[index].scan?.createdAt!.day}/${scans.value[index].scan?.createdAt!.month}/${scans.value[index].scan?.createdAt!.year}',
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Spacing.height(16);
-                    },
-                    itemCount: scans.value.length,
-                    shrinkWrap: true,
+          body: Builder(builder: (context) {
+            if (isLoading.value) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Spacing.height(26),
+                  const AppText(
+                    'Check out your scan history and see details',
+                    fontSize: 18,
+                    color: AppColors.black,
+                    fontWeight: FontWeight.w500,
                   ),
-                ),
-              ],
-            ),
-          ),
+                  const Spacing.height(16),
+                  Expanded(
+                    child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            navigationService
+                                .push(ScanDetailView(scans.value[index]));
+                          },
+                          child: ScanCard(
+                            title: scans.value[index].scan?.scanId ?? '',
+                            date:
+                                '${scans.value[index].scan?.createdAt!.day}/${scans.value[index].scan?.createdAt!.month}/${scans.value[index].scan?.createdAt!.year}',
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Spacing.height(16);
+                      },
+                      itemCount: scans.value.length,
+                      shrinkWrap: true,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
         );
       },
     );
