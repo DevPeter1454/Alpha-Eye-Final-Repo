@@ -179,7 +179,7 @@ function Management({ scanResultData }: any) {
 
       {showScanResult && (
         <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-50 flex justify-center items-center">
-          <div ref={showScanResultRef} className="w-3/5">
+          <div ref={showScanResultRef} className="w-1/2">
             <ScanResult
               setShowScanResult={setShowScanResult}
               setShowPrescription={setShowPrescription}
@@ -192,7 +192,10 @@ function Management({ scanResultData }: any) {
       {showPrescription && (
         <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-50 flex justify-center items-center">
           <div ref={showPrescriptionRef} className="w-3/5">
-            <MakePrescription setShowPrescription={setShowPrescription} />
+            <MakePrescription
+              selectedPatient={selectedPatient}
+              setShowPrescription={setShowPrescription}
+            />
           </div>
         </div>
       )}
