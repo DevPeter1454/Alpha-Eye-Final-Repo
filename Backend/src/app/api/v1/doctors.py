@@ -12,10 +12,12 @@ from ...core.security import blacklist_token, get_password_hash, oauth2_scheme
 from ...crud.crud_rate_limit import crud_rate_limits
 from ...crud.crud_tier import crud_tiers
 from ...crud.crud_doctors import crud_doctors
+from ...crud.crud_patients import crud_patients
 from ...crud.crud_hospitals import crud_hospitals
 from ...crud.crud_prescriptions import crud_prescriptions
 from ...models.tier import Tier
 from ...models.prescription import Prescriptions
+from ...models.patients import Patient
 from ...schemas.tier import TierRead
 from ...schemas.hospital import HospitalRead
 from ...schemas.doctor import DoctorCreate, DoctorCreateInternal, DoctorRead, DoctorUpdate
@@ -23,8 +25,12 @@ from ...schemas.prescription import PrescriptionCreate, PrescriptionRead, Prescr
 from ...core.utils.cache import cache
 from pydantic import EmailStr
 from ...core.config import settings
+from ...core.firebase_config import firebase_db
+from ...core.fcm_manager import send_notification
 import cloudinary
 import cloudinary.uploader
+
+
 
 router = fastapi.APIRouter(tags=["doctors"])
 
@@ -33,6 +39,8 @@ cloudinary.config(
     api_key=f"{settings.CLOUDINARY_API_KEY}",
     api_secret=f"{settings.CLOUDINARY_API_SECRET}"
 )
+
+
 
 
 @router.post("/doctor", status_code=201, response_model=DoctorRead)
@@ -66,13 +74,29 @@ async def write_doctor(
     return
 
 
-@router.post("/doctor/prescribe", status_code=201, response_model=PrescriptionRead)
+@router.post("/doctor/prescribe", status_code=201, )
 async def write_prescription(prescription: PrescriptionCreate, db: Annotated[AsyncSession, Depends(async_get_db)],
                              current_user: Annotated[HospitalRead, Depends(get_current_doctor_or_hospital)], ):
 
     if prescription.doctor_id != current_user["doctor_id"]:
         raise ForbiddenException(
             "You are not authorized to perform this action")
+    
+    patient_row = await crud_patients.get(db=db,special_id=prescription.patient_id)
+
+    first_name = patient_row["firstname"]
+    last_name = patient_row["lastname"]
+
+    special_id = patient_row["special_id"]
+
+    full_name = f"{first_name} {last_name}"
+
+    if patient_row is None:
+        raise NotFoundException("Patient not found")
+
+    user = firebase_db.child("users").child("AE316492").get()
+
+    send_notification("Prescription Alert!", f"Hello {full_name} you have a new prescription from your doctor", user.val()["tokens"])
 
     prescription_internal_dict = prescription.model_dump()
 
@@ -80,6 +104,25 @@ async def write_prescription(prescription: PrescriptionCreate, db: Annotated[Asy
         **prescription_internal_dict)
     created_prescription: PrescriptionRead = await crud_prescriptions.create(db=db, object=prescription_internal)
     return created_prescription
+
+@router.get("/doctor/prescriptions", status_code= 200)
+async def get_prescriptions_list(
+    request: Request,
+    db: Annotated[AsyncSession, Depends(async_get_db)],
+    current_user: Annotated[HospitalRead, Depends(get_current_doctor_or_hospital)],
+    page: int = 1,
+    items_per_page: int = 10
+):
+    
+
+    prescriptions_data = await crud_prescriptions.get_multi(db=db, doctor_id= current_user["doctor_id"], offset=compute_offset(page, items_per_page),
+        limit=items_per_page,)
+    
+    return prescriptions_data
+
+@router.patch("/doctor/prescription/{prescription_id}")
+async def update_prescription():
+    pass
 
 
 @router.delete("/doctor/{doctor_id}")

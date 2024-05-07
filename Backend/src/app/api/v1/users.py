@@ -16,7 +16,14 @@ from ...models.tier import Tier
 from ...schemas.tier import TierRead
 from ...schemas.user import UserCreate, UserCreateInternal, UserRead, UserTierUpdate, UserUpdate
 from ...core.utils.cache import cache
-from pydantic import EmailStr
+from pydantic import EmailStr, Field
+
+from ...core.config import settings
+
+from ...core.firebase_config import firebase_db
+
+import pyrebase
+
 
 router = fastapi.APIRouter(tags=["users"])
 
@@ -41,6 +48,40 @@ async def write_user(
     return created_user
 
 
+@router.post("/user/device-token", status_code=200)
+async def get_user_device_token(request: Request, deviceToken: str, current_user: Annotated[UserRead, Depends(get_current_user)], db: Annotated[AsyncSession, Depends(async_get_db)]):
+
+    special_id = current_user['special_id']
+
+    first_name = current_user['firstname']
+
+    last_name = current_user["lastname"]
+
+    user = firebase_db.child("users").child(special_id).get()
+
+    if user.val() is None :
+        data = {
+            "special_id": special_id,
+            "tokens": [deviceToken],
+            "name": f"{first_name} {last_name}"
+        }
+        firebase_db.child("users").child(special_id).set(data)
+    else:
+        new_token_list = []
+        old_token_list = user.val()["tokens"]
+        new_token_list.extend(old_token_list)
+        if deviceToken not in new_token_list:
+            new_token_list.append(deviceToken)
+
+        updated_data = {
+            "special_id": special_id,
+            "tokens": new_token_list,
+            "name": f"{first_name} {last_name}"
+        }
+
+        firebase_db.child("users").child(special_id).update(updated_data)
+
+    return {"message": "device token saved successfully"}
 
 
 @router.get("/users", response_model=PaginatedListResponse[UserRead])

@@ -22,7 +22,6 @@ from ...core.security import (
 )
 
 
-
 router = fastapi.APIRouter(tags=["login"])
 
 

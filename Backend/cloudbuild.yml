@@ -1,0 +1,86 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'  # Build Docker image
+  args: ['build', '--no-cache','-t', 'northamerica-northeast1-docker.pkg.dev/alpha-eye/alpha-eye-be-latest/alpha-eye-be-v2:latest', '.']
+
+# New deployment step
+# - name: 'gcr.io/cloud-builders/gcloud'  # Deploy image to Cloud Run
+#   args: ['run', 'deploy', 'alpha-eye-be-v2',  # Your Cloud Run service name
+#         '--image', 'northamerica-northeast1-docker.pkg.dev/alpha-eye/alpha-eye-be/alpha-eye-be-v2',
+#         '--region', 'us-central1',  # Optional: Specify region (replace if needed)
+#         '--platform', 'managed'  # Specify platform (managed for Cloud Run)
+#        ]
+images:
+- 'northamerica-northeast1-docker.pkg.dev/alpha-eye/alpha-eye-be-latest/alpha-eye-be-v2:latest'
+
+# ... (other build steps, if any)
+
+# - name: 'gcr.io/cloud-builders/gcloud'  # Deploy to Cloud Run
+#   args: ['run', 'deploy', 'alpha-eye-be-v2',
+#           '--image', 'northamerica-northeast1-docker.pkg.dev/alpha-eye/alpha-eye-be',
+#           '--platform', 'managed',
+#           '--region', 'us-central1',
+#           '--set-env-vars', 'APP_NAME=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:APP_NAME',
+#           '--set-env-vars', 'APP_DESCRIPTION=projects/YOUR_PROJECT_ID/secrets/alpha-eye-be-v2-env/versions/latest:APP_DESCRIPTION', 
+#           '--set-env-vars', 'APP_VERSION=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:APP_VERSION',
+#           '--set-env-vars', 'CONTACT_NAME=projects/YOUR_PROJECT_ID/secrets/alpha-eye-be-v2-env/versions/latest:CONTACT_NAME', 
+#           '--set-env-vars', 'CONTACT_EMAIL=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:CONTACT_EMAIL',
+#           '--set-env-vars', 'LICENSE_NAME=projects/YOUR_PROJECT_ID/secrets/alpha-eye-be-v2-env/versions/latest:LICENSE_NAME', 
+#           '--set-env-vars', 'POSTGRES_USER=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:POSTGRES_USER',
+#           '--set-env-vars', 'POSTGRES_PASSWORD=projects/YOUR_PROJECT_ID/secrets/alpha-eye-be-v2-env/versions/latest:POSTGRES_PASSWORD', 
+#           '--set-env-vars', 'POSTGRES_SERVER=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:POSTGRES_SERVER',
+#           '--set-env-vars', 'POSTGRES_PORT=projects/YOUR_PROJECT_ID/secrets/alpha-eye-be-v2-env/versions/latest:POSTGRES_PORT', 
+#           '--set-env-vars', 'POSTGRES_DB=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:POSTGRES_DB',
+
+#           '--set-env-vars', 'PGADMIN_DEFAULT_EMAIL=projects/YOUR_PROJECT_ID/secrets/alpha-eye-be-v2-env/versions/latest:PGADMIN_DEFAULT_EMAIL', 
+#           '--set-env-vars', 'PGADMIN_DEFAULT_PASSWORD=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:PGADMIN_DEFAULT_PASSWORD',
+#           '--set-env-vars', 'PGADMIN_LISTEN_PORT=projects/YOUR_PROJECT_ID/secrets/alpha-eye-be-v2-env/versions/latest:PGADMIN_LISTEN_PORT',
+
+#           '--set-env-vars', 'SECRET_KEY=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:SECRET_KEY',
+#           '--set-env-vars', 'ALGORITHM=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:ALGORITHM',
+
+#           '--set-env-vars', 'ACCESS_TOKEN_EXPIRE_MINUTES=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:ACCESS_TOKEN_EXPIRE_MINUTES',
+#           '--set-env-vars', 'REFRESH_TOKEN_EXPIRE_MINUTES=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:REFRESH_TOKEN_EXPIRE_MINUTES',
+#           '--set-env-vars', 'REFRESH_TOKEN_EXPIRE_DAYS=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:REFRESH_TOKEN_EXPIRE_DAYS', 
+ 
+#           '--set-env-vars', 'ADMIN_NAME=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:ADMIN_NAME',  
+#           '--set-env-vars', 'ADMIN_EMAIL=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:ADMIN_EMAIL',
+#           '--set-env-vars', 'ADMIN_PASSWORD=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:ADMIN_PASSWORD',
+#           '--set-env-vars', 'ADMIN_USERNAME=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:ADMIN_USERNAME',
+
+#           '--set-env-vars', 'REDIS_CACHE_HOST=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:REDIS_CACHE_HOST',
+#           '--set-env-vars', 'REDIS_CACHE_PORT=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:REDIS_CACHE_PORT',
+#           '--set-env-vars', 'REDIS_CACHE_PASSWORD=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:REDIS_CACHE_PASSWORD',
+
+#           '--set-env-vars', 'CLIENT_CACHE_MAX_AGE=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:CLIENT_CACHE_MAX_AGE',
+
+#           '--set-env-vars', 'REDIS_QUEUE_HOST=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:REDIS_QUEUE_HOST',
+
+#           '--set-env-vars', 'REDIS_QUEUE_PORT=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:REDIS_QUEUE_PORT',
+
+#           '--set-env-vars', 'TIER_NAME=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:TIER_NAME',
+
+#           '--set-env-vars', 'REDIS_RATE_LIMIT_HOST=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:REDIS_RATE_LIMIT_HOST',
+
+#           '--set-env-vars', 'REDIS_RATE_LIMIT_PORT=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:REDIS_RATE_LIMIT_PORT',
+
+#           '--set-env-vars', 'DEFAULT_RATE_LIMIT_LIMIT=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:DEFAULT_RATE_LIMIT_LIMIT',
+
+#           '--set-env-vars', 'DEFAULT_RATE_LIMIT_PERIOD=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:DEFAULT_RATE_LIMIT_PERIOD',
+
+#           '--set-env-vars', 'TEST_NAME=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:TEST_NAME',
+
+#           '--set-env-vars', 'TEST_EMAIL=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:TEST_EMAIL',
+
+#           '--set-env-vars', 'TEST_PASSWORD=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:TEST_PASSWORD',
+
+#           '--set-env-vars', 'TEST_USERNAME=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:TEST_USERNAME',
+
+#           '--set-env-vars', 'CLOUDINARY_CLOUD_NAME=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:CLOUDINARY_CLOUD_NAME',
+
+#           '--set-env-vars', 'CLOUDINARY_API_KEY=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:CLOUDINARY_API_KEY',
+
+#           '--set-env-vars', 'CLOUDINARY_API_SECRET=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:CLOUDINARY_API_SECRET',  
+
+#           '--set-env-vars', 'ENVIRONMENT=projects/alpha-eye/secrets/alpha-eye-be-v2-env/versions/latest:ENVIRONMENT',
+#         ]
+

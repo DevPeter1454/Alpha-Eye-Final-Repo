@@ -92,6 +92,30 @@ class RedisCacheSettings(BaseSettings):
 class ClientSideCacheSettings(BaseSettings):
     CLIENT_CACHE_MAX_AGE: int = config("CLIENT_CACHE_MAX_AGE", default=60)
 
+class FirebaseConfigSettings(BaseSettings):
+    FIREBASE_API_KEY: str = config("FIREBASE_API_KEY", default="None")
+    FIREBASE_AUTH_DOMAIN: str = config("FIREBASE_AUTH_DOMAIN", default="None")
+    FIREBASE_PROJECT_ID: str = config("FIREBASE_PROJECT_ID", default="None")
+    FIREBASE_DATABASE_URI: str = config("FIREBASE_DATABASE_URL", default="None")
+    FIREBASE_DATABASE_URL:str = f"{FIREBASE_DATABASE_URI}"
+    FIREBASE_STORAGE_BUCKET : str = config("FIREBASE_STORAGE_BUCKET", default="None")
+    FIREBASE_MESSAGING_SENDER_ID: str = config(
+        "FIREBASE_MESSAGING_SENDER_ID", default="None")
+    FIREBASE_APP_ID:str = config("FIREBASE_APP_ID", default='None')
+    FIREBASE_MEASUREMENT_ID: str = config("FIREBASE_MEASUREMENT_ID", default="None")
+
+
+class CredentialsConfigSettings(BaseSettings):
+    CREDENTIAL: str = config("CREDENTIALS", default="None")
+    
+
+
+
+
+
+
+
+
 
 # class RedisQueueSettings(BaseSettings):
 #     REDIS_QUEUE_HOST: str = config("REDIS_QUEUE_HOST", default="localhost")
@@ -124,10 +148,14 @@ class Settings(
     PostgresSettings,
     CryptSettings,
     CloudinaryConfigSettings,
+
     # FirstUserSettings,
     # TestSettings,
     RedisCacheSettings,
     ClientSideCacheSettings,
+    FirebaseConfigSettings,
+    CredentialsConfigSettings,
+
     # RedisQueueSettings,
     # RedisRateLimiterSettings,
     # DefaultRateLimitSettings,
